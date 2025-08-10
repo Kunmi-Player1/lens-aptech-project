@@ -1,0 +1,19 @@
+[
+  {
+    "id": "sun-001",
+    "title": "Classic Havana Sunglasses",
+    "brand": "Persol",
+    "category": "Sunglasses",
+    "price": 199.00,
+    "image_urls": [
+      "/assets/frames/sunglasses-libreshot.jpg"
+    ],
+    "spec_doc_url": "/docs/features-template.docx",
+    "attributes": {
+      "frame_material": "Acetate",
+      "lens_type": "Polarized",
+      "gender": "Unisex"
+    },
+    "alt": "Classic sunglasses in Havana colorway on wooden surface"
+  }
+]
