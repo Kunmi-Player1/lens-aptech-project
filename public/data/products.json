@@ -1,19 +1,56 @@
 [
   {
-    "id": "sun-001",
-    "title": "Classic Havana Sunglasses",
-    "brand": "Persol",
+    "id": "classic-aviator-58",
+    "name": "Classic Aviator 58mm",
+    "brand": "SunWave",
     "category": "Sunglasses",
-    "price": 199.00,
-    "image_urls": [
-      "/assets/frames/sunglasses-libreshot.jpg"
-    ],
-    "spec_doc_url": "/docs/features-template.docx",
-    "attributes": {
-      "frame_material": "Acetate",
-      "lens_type": "Polarized",
-      "gender": "Unisex"
-    },
-    "alt": "Classic sunglasses in Havana colorway on wooden surface"
+    "price": 65000,
+    "image": "https://pixabay.com/photos/sunglasses-white-background-glasses-1731454/",
+    "spec": "/docs/classic-aviator-58.doc"
+  },
+  {
+    "id": "wayfarer-matte-black",
+    "name": "Wayfarer Style Matte Black",
+    "brand": "UrbanEyes",
+    "category": "Sunglasses",
+    "price": 52000,
+    "image": "https://pixabay.com/photos/wooden-table-eyewear-black-2595756/",
+    "spec": "/docs/wayfarer-style-matte-black.doc"
+  },
+  {
+    "id": "minimalist-clear-52",
+    "name": "Minimalist Clear Frame 52mm",
+    "brand": "ClearView",
+    "category": "Optical Frames",
+    "price": 48000,
+    "image": "https://pixabay.com/photos/glasses-spectacles-white-eyesight-1830474/",
+    "spec": "/docs/minimalist-clear-52.doc"
+  },
+  {
+    "id": "bookish-reader-tortoise",
+    "name": "Bookish Reader – Tortoise",
+    "brand": "Lens Shop Originals",
+    "category": "Optical Frames",
+    "price": 43000,
+    "image": "https://pixabay.com/photos/glasses-book-read-eyeglasses-3088491/",
+    "spec": "/docs/bookish-reader-tortoise.doc"
+  },
+  {
+    "id": "wood-polarized-bamboo",
+    "name": "Wood Polarized Bamboo",
+    "brand": "UrbanEyes",
+    "category": "Sunglasses",
+    "price": 57000,
+    "image": "https://pixabay.com/photos/wood-sunglasses-polarized-sunglasses-2500248/",
+    "spec": "/docs/wood-polarized-bamboo.doc"
+  },
+  {
+    "id": "hydrosoft-daily-contacts-30",
+    "name": "HydroSoft Daily Contacts (30 pack)",
+    "brand": "ClearView",
+    "category": "Contact Lenses",
+    "price": 38000,
+    "image": "https://pixabay.com/photos/contact-lenses-4792987/",
+    "spec": "/docs/hydrosoft-daily-contacts.doc"
   }
 ]
