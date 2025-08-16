@@ -12,13 +12,13 @@ export default function PageContact() {
     navigator.geolocation.getCurrentPosition(
       (pos) => setCoords({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
       (err) => setGeoError(err.message),
-      { enableHighAccuracy: true, timeout: 10000 }
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
     )
   }, [])
 
   const mapSrc = coords
-    ? `https://www.google.com/maps?q=${coords.lat},${coords.lng}&z=14&output=embed`
-    : 'https://www.google.com/maps?q=Lagos%2C%20Nigeria&z=12&output=embed'
+    ? `https://maps.google.com/maps?hl=en&q=${coords.lat},${coords.lng}&t=&z=14&ie=UTF8&iwloc=B&output=embed`
+    : 'https://maps.google.com/maps?hl=en&q=Lagos%2C%20Nigeria&t=&z=12&ie=UTF8&iwloc=B&output=embed'
 
   return (
     <section>
@@ -44,7 +44,15 @@ export default function PageContact() {
 
         <div>
           <div style={{ height: 320, borderRadius: 12, overflow: 'hidden', border: '1px solid var(--border-color)' }}>
-            <iframe title="Map" src={mapSrc} width="100%" height="100%" loading="lazy" />
+            <iframe
+              title="Map"
+              src={mapSrc}
+              width="100%"
+              height="100%"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
           </div>
           <div style={{ marginTop: '0.5rem' }}>
             {coords && (
