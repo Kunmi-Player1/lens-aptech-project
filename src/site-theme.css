@@ -1,8 +1,9 @@
 /* =========================================================
-   Lens Shop — Site Theme (cleaned)
+   Lens Shop — Site Theme (fixed & commented)
+   What each block styles is labeled with ALL CAPS headings.
    ========================================================= */
 
-/* ========== GLOBAL TOKENS ========== */
+/* ========== GLOBAL TOKENS (colors, spacing, sizes) ========== */
 :root {
   --brand-color: #0d6efd;
   --brand-color-hover: #0b5ed7;
@@ -11,10 +12,10 @@
   --muted-text-color: #4b5563;
   --border-color: #e5e7eb;
   --max-width: 1100px;
-  --anchor-offset: 72px;
+  --anchor-offset: 72px; /* sticky header height used for anchor offset */
 }
 
-/* ========== RESET & LAYOUT ========== */
+/* ========== RESET & LAYOUT (page basics, containers) ========== */
 * { box-sizing: border-box; }
 html, body { min-height: 100%; height: auto; }
 #react-root { min-height: 100%; }
@@ -30,11 +31,11 @@ body {
 .container { max-width: var(--max-width); margin-inline: auto; padding-inline: 1rem; }
 img { max-width: 100%; display: block; }
 
-/* ========== HEADER ========== */
+/* ========== HEADER (sticky bar + brand) ========== */
 .siteHeader {
   position: sticky;
   top: 0;
-  z-index: 10000;
+  z-index: 10020; /* keep header ABOVE menu & scrim on mobile */
   background: var(--surface-color);
   border-bottom: 1px solid var(--border-color);
 }
@@ -49,23 +50,125 @@ img { max-width: 100%; display: block; }
 .brandLogo { width: 28px; height: 28px; display: block; }
 .brandText { font-weight: 600; }
 
-/* ========== NAV ========== */
-.navArea { display: block; }
-.navList { list-style: none; margin: 0; padding: 0; display: flex; gap: 1rem; align-items: center; }
+/* =========================================================
+   NAVIGATION (desktop defaults + mobile hamburger behavior)
+   ========================================================= */
+
+/* DESKTOP DEFAULTS (inline nav) */
+.navArea { display: flex; } /* visible inline on large screens */
+.navList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
 .navLink { text-decoration: none; color: inherit; padding: 0.25rem 0.5rem; border-radius: 6px; }
 .navLink:hover { color: var(--brand-color-hover); }
 .navLinkActive { color: var(--brand-color); text-decoration: underline; font-weight: 600; }
 
-/* ========== MAIN & SECTIONS ========== */
+/* HAMBURGER TOGGLE (hidden by default, shown on small screens) */
+.navToggleButton {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  display: none;            /* shown in media query for small screens */
+  inline-size: 40px;
+  block-size: 40px;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color); /* ensures contrast over header background */
+  cursor: pointer;
+  z-index: 10021;           /* sits above everything in the header */
+}
+.navToggleButton:focus-visible {
+  outline: 2px solid var(--brand-color);
+  outline-offset: 2px;
+}
+.navToggleIcon {
+  position: relative;
+  display: block;
+  inline-size: 24px;
+  block-size: 2px;
+  background: currentColor; /* middle bar */
+  border-radius: 1px;
+}
+.navToggleIcon::before,
+.navToggleIcon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  inline-size: 24px;
+  block-size: 2px;
+  background: currentColor;
+  border-radius: 1px;
+}
+.navToggleIcon::before { transform: translateY(-7px); } /* top bar */
+.navToggleIcon::after  { transform: translateY(7px); }  /* bottom bar */
+
+/* =========================================================
+   MOBILE MENU (slides down under sticky header, fully hides when closed)
+   ========================================================= */
+@media (max-width: 600px) {
+  .navToggleButton { display: inline-flex; } /* show hamburger */
+
+  .navArea {
+    /* slide-down panel anchored under the sticky header */
+    position: fixed;
+    top: var(--anchor-offset);
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 8px 20px rgba(0,0,0,.08);
+
+    /* CLOSED state — nothing visible or clickable */
+    transform: translateY(-100%);      /* off-canvas exactly 100% height */
+    opacity: 0;                        /* not visible */
+    visibility: hidden;                /* not rendered for hit-testing */
+    pointer-events: none;              /* no clicks */
+    transition:
+      transform .25s ease,
+      opacity .2s ease,
+      visibility .2s step-end;
+
+    display: block;     /* becomes a block panel on mobile */
+    z-index: 10015;     /* BELOW header (10020), ABOVE scrim (10005) */
+  }
+
+  .navArea[data-open="true"] {
+    /* OPEN state — visible and interactive */
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition:
+      transform .25s ease,
+      opacity .2s ease,
+      visibility 0s step-start;
+  }
+
+  .navList {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    padding: 1rem;
+    margin: 0;
+  }
+  .navLink { padding: .5rem .75rem; } /* bigger tap targets */
+}
+
+/* ========== MAIN & SECTIONS (content spacing + anchor offset) ========== */
 .mainArea { flex: 1 0 auto; padding-block: 2rem; overflow: visible; }
 .sectionBlock { scroll-margin-top: var(--anchor-offset); padding-block: 2rem; }
 
-/* ========== PAGE TEXT ========== */
+/* ========== PAGE TEXT (titles, leads) ========== */
 .pageTitle { font-size: 1.75rem; line-height: 1.2; font-weight: 700; margin: 0 0 1rem 0; }
 .pageLead { font-size: 1.125rem; color: var(--muted-text-color); margin: 0 0 0.75rem 0; }
 
 /* =========================================================
-   CATALOG — FILTER BAR
+   CATALOG — FILTER BAR (brand/category selects)
    ========================================================= */
 .filterBar {
   display: grid;
@@ -84,7 +187,7 @@ img { max-width: 100%; display: block; }
 .filterOption select { padding: 0.45rem 0.6rem; border: 1px solid var(--border-color); border-radius: 0.5rem; background: #fff; }
 
 /* =========================================================
-   CATALOG — PRODUCT GRID & CARDS
+   CATALOG — PRODUCT GRID & CARDS (thumbnails, details, actions)
    ========================================================= */
 .catalogGrid {
   display: grid;
@@ -122,7 +225,12 @@ img { max-width: 100%; display: block; }
 .productMeta { color: var(--muted-text-color); font-size: 0.9rem; }
 .productPrice { font-weight: 700; }
 
-.productActions { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-top: .5rem; }
+.productActions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .75rem;
+  margin-top: .5rem;
+}
 .buttonPrimary, .buttonLink {
   display: inline-flex; align-items: center; justify-content: center;
   height: 38px; padding: 0 .9rem; border-radius: .5rem; white-space: nowrap; text-decoration: none;
@@ -132,7 +240,7 @@ img { max-width: 100%; display: block; }
 .buttonLink { background: #fff; border: 1px solid var(--border-color); color: var(--text-color); }
 
 /* =========================================================
-   COMPARE — PICK GRID & TABLE
+   COMPARE — PICK GRID & TABLE (limit-to-two, layout)
    ========================================================= */
 .comparePickGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
 .pickButton {
@@ -144,13 +252,20 @@ img { max-width: 100%; display: block; }
 .pickSelected { outline: 2px solid var(--brand-color); outline-offset: 2px; }
 .compareActions { margin: 1rem 0; display: flex; justify-content: flex-end; }
 
-.compareTable { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid var(--border-color); border-radius: .75rem; overflow: hidden; }
+.compareTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--border-color);
+  border-radius: .75rem;
+  overflow: hidden;
+}
 .compareTable thead th { background: #fafafa; text-align: left; padding: .75rem; border-bottom: 1px solid var(--border-color); }
 .compareTable td { padding: .75rem; border-bottom: 1px solid var(--border-color); }
 .compareTable tbody tr:last-child td { border-bottom: none; }
 
 /* =========================================================
-   CART — HEADER BADGE, PANEL & LIST
+   CART — HEADER BADGE, PANEL & LIST (side drawer)
    ========================================================= */
 .cartHeaderButton {
   position: relative; display: inline-flex; align-items: center; gap: .5rem;
@@ -236,7 +351,7 @@ img { max-width: 100%; display: block; }
   .specImage { height: 240px; }
 }
 
-/* ========== FOOTER ========== */
+/* ========== FOOTER (brand, text line) ========== */
 .siteFooter { border-top: 1px solid var(--border-color); background: #fff; }
 .siteFooterInner { display: flex; flex-direction: column; gap: 0.75rem; align-items: center; justify-content: space-between; padding-block: 1rem; }
 .footerBrand { display: flex; align-items: center; gap: 0.5rem; }
@@ -244,11 +359,34 @@ img { max-width: 100%; display: block; }
 .footerText { font-size: 0.875rem; color: var(--muted-text-color); }
 @media (min-width: 960px) { .siteFooterInner { flex-direction: row; } }
 
-/* ========== ACCESSIBILITY HELPERS ========== */
+/* ========== ACCESSIBILITY HELPERS (screen-reader only) ========== */
 .visuallyHidden {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
 
-/* IFRAME SAFETY */
+/* ========== IFRAME SAFETY (avoid stacking issues) ========== */
 iframe { position: relative; z-index: 0; }
+
+/* =========================================================
+   MOBILE NAV SCRIM (dims page content under the header)
+   ========================================================= */
+.navScrim{
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  top: var(--anchor-offset); /* start BELOW sticky header so brand/cart stay visible */
+  background: rgba(0,0,0,.35);
+  border: 0;
+  padding: 0;
+  margin: 0;
+  z-index: 10005; /* below menu (10015), below header (10020) */
+  display: none;
+}
+@media (max-width: 900px){
+  .navScrim{ display: block; }
+}
+
+/* Motion safety for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .navArea { transition: none; }
+}

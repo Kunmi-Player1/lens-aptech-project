@@ -3,25 +3,38 @@ import PageHome from "../pages/PageHome.jsx";
 import PageCatalog from "../pages/PageCatalog.jsx";
 import PageCompare from "../pages/PageCompare.jsx";
 import PageContact from "../pages/PageContact.jsx";
-import Cart from "../Cart/cart.js";
+import Cart from "../cart/cart.js";
 import CartPanel from "../Components/CartPanel.jsx";
 
-function Header({ onOpenCart, activeId, qty }) {
+function Header({ onOpenCart, activeId, qty, navOpen, onToggleNav, onNavClick }) {
   return (
     <header className="siteHeader">
       <div className="siteHeaderInner container">
-        <a className="brand" href="#home">
+        <a className="brand" href="#home" onClick={() => onNavClick("home")}>
           <img className="brandLogo" src="/assets/icons/lens-shop-logo.svg" alt="" />
           <span className="brandText">Lens Shop</span>
         </a>
-        <nav className="navArea" data-open="true">
+
+        <button
+          className="navToggleButton"
+          aria-expanded={navOpen ? "true" : "false"}
+          aria-haspopup="menu"
+          aria-controls="site-nav"
+          onClick={onToggleNav}
+        >
+          <span className="navToggleIcon" aria-hidden="true"></span>
+          <span className="visuallyHidden">{navOpen ? "Close menu" : "Open menu"}</span>
+        </button>
+
+        <nav id="site-nav" className="navArea" data-open={navOpen ? "true" : "false"}>
           <ul className="navList">
-            <li><a className={activeId === "home" ? "navLink navLinkActive" : "navLink"} href="#home">Home</a></li>
-            <li><a className={activeId === "catalog" ? "navLink navLinkActive" : "navLink"} href="#catalog">Catalog</a></li>
-            <li><a className={activeId === "compare" ? "navLink navLinkActive" : "navLink"} href="#compare">Compare</a></li>
-            <li><a className={activeId === "contact" ? "navLink navLinkActive" : "navLink"} href="#contact">Contact</a></li>
+            <li><a className={activeId === "home" ? "navLink navLinkActive" : "navLink"} href="#home" onClick={() => onNavClick("home")}>Home</a></li>
+            <li><a className={activeId === "catalog" ? "navLink navLinkActive" : "navLink"} href="#catalog" onClick={() => onNavClick("catalog")}>Catalog</a></li>
+            <li><a className={activeId === "compare" ? "navLink navLinkActive" : "navLink"} href="#compare" onClick={() => onNavClick("compare")}>Compare</a></li>
+            <li><a className={activeId === "contact" ? "navLink navLinkActive" : "navLink"} href="#contact" onClick={() => onNavClick("contact")}>Contact</a></li>
           </ul>
         </nav>
+
         <button className="cartHeaderButton" onClick={onOpenCart} aria-label="Open cart">
           <span className="cartHeaderIcon">🛒</span>
           <span className="cartHeaderBadge" aria-live="polite">{qty}</span>
@@ -35,28 +48,31 @@ export default function AppShell() {
   const [activeId, setActiveId] = useState("home");
   const [openCart, setOpenCart] = useState(false);
   const [qty, setQty] = useState(Cart.totals().qty);
+  const [navOpen, setNavOpen] = useState(false);
   const sectionsRef = useRef({});
 
   useEffect(() => {
-    function onChange() {
-      setQty(Cart.totals().qty);
-    }
+    const onChange = () => setQty(Cart.totals().qty);
     window.addEventListener("cart:change", onChange);
     return () => window.removeEventListener("cart:change", onChange);
   }, []);
 
+  // Lock background scroll when cart or nav is open
   useEffect(() => {
-    document.body.style.overflow = openCart ? "hidden" : "auto";
-  }, [openCart]);
+    document.body.style.overflow = openCart || navOpen ? "hidden" : "auto";
+  }, [openCart, navOpen]);
 
+  // Observe sections + set initial anchor offset for sticky header
   useEffect(() => {
     const sections = ["home", "catalog", "compare", "contact"].map(id => document.getElementById(id));
     const map = {};
     sections.forEach(s => { if (s) map[s.id] = s; });
     sectionsRef.current = map;
+
     const header = document.querySelector(".siteHeader");
     const headerH = header ? header.getBoundingClientRect().height : 72;
     document.documentElement.style.setProperty("--anchor-offset", `${headerH}px`);
+
     const io = new IntersectionObserver(
       entries => {
         const visible = entries.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
@@ -68,18 +84,75 @@ export default function AppShell() {
     return () => io.disconnect();
   }, []);
 
+  // Keep --anchor-offset perfectly in sync with header height (no “sliver” gaps)
+  useEffect(() => {
+    const header = document.querySelector(".siteHeader");
+    if (!header) return;
+    const setOffset = () => {
+      const h = Math.round(header.getBoundingClientRect().height);
+      document.documentElement.style.setProperty("--anchor-offset", `${h}px`);
+    };
+    setOffset();
+    const ro = new ResizeObserver(setOffset);
+    ro.observe(header);
+    const onResize = () => setOffset();
+    window.addEventListener("resize", onResize);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+
+  // Close mobile nav on navigation, ESC, or when leaving mobile width
+  useEffect(() => {
+    const close = () => setNavOpen(false);
+    const onKey = e => { if (e.key === "Escape") setNavOpen(false); };
+    const onResize = () => { if (window.innerWidth > 900) setNavOpen(false); };
+    window.addEventListener("hashchange", close);
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("hashchange", close);
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+
+  const handleNavClick = id => {
+    setActiveId(id);
+    setNavOpen(false);
+  };
+
   return (
     <>
-      <Header onOpenCart={() => setOpenCart(true)} activeId={activeId} qty={qty} />
+      <Header
+        onOpenCart={() => setOpenCart(true)}
+        activeId={activeId}
+        qty={qty}
+        navOpen={navOpen}
+        onToggleNav={() => setNavOpen(v => !v)}
+        onNavClick={handleNavClick}
+      />
+
+      {navOpen && (
+        <button
+          type="button"
+          className="navScrim"
+          aria-label="Close menu"
+          onClick={() => setNavOpen(false)}
+        />
+      )}
+
       <main className="mainArea">
         <section id="home" className="sectionBlock container"><PageHome /></section>
         <section id="catalog" className="sectionBlock container"><PageCatalog onOpenCart={() => setOpenCart(true)} /></section>
         <section id="compare" className="sectionBlock container"><PageCompare onOpenCart={() => setOpenCart(true)} /></section>
         <section id="contact" className="sectionBlock container"><PageContact /></section>
       </main>
+
       <footer className="siteFooter">
         <div className="siteFooterInner container">
-          <a className="footerBrand" href="#home">
+          <a className="footerBrand" href="#home" onClick={() => handleNavClick("home")}>
             <img className="footerLogo" src="/assets/icons/lens-shop-logo.svg" alt="" />
             <span className="footerText">Lens Shop</span>
           </a>
