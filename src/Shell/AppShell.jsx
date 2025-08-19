@@ -5,11 +5,38 @@ import PageCompare from "../pages/PageCompare.jsx";
 import PageContact from "../pages/PageContact.jsx";
 import Cart from "../cart/cart.js";
 import CartPanel from "../Components/CartPanel.jsx";
+import "../styles/AppShell.css"
+import Loader from "../Components/Loader.jsx";
 
 function Header({ onOpenCart, activeId, qty, navOpen, onToggleNav, onNavClick }) {
+
+  const [darkMode, setDarkMode] = useState(false);
+    const [backgroundImg, setBackgroundImg] = useState("/assets/wallpaper/lightmode.jpg");
+      const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const savedMode = localStorage.getItem("darkMode");
+    if (savedMode === "true") {
+      setDarkMode(true);
+      document.body.classList.add("dark");
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("darkMode", darkMode);
+  }, [darkMode]);
+
+  const handleDarkToggle = () => {
+    const newMode = !darkMode;
+    setDarkMode(newMode);
+    document.body.classList.toggle("dark", newMode);
+  };
+
   return (
     <header className="siteHeader">
-      <div className="siteHeaderInner container">
+
+
+      <div className="siteHeaderInner">
         <a className="brand" href="#home" onClick={() => onNavClick("home")}>
           <img className="brandLogo" src="/assets/icons/lens-shop-logo.svg" alt="" />
           <span className="brandText">Lens Shop</span>
@@ -35,10 +62,23 @@ function Header({ onOpenCart, activeId, qty, navOpen, onToggleNav, onNavClick })
           </ul>
         </nav>
 
-        <button className="cartHeaderButton" onClick={onOpenCart} aria-label="Open cart">
-          <span className="cartHeaderIcon">🛒</span>
-          <span className="cartHeaderBadge" aria-live="polite">{qty}</span>
-        </button>
+      <div className="cartHeader">
+          <button className="cartHeaderButton" onClick={onOpenCart} aria-label="Open cart">
+            <span className="cartHeaderIcon">🛒</span>
+            <span className="cartHeaderBadge" aria-live="polite">{qty}</span>
+          </button>
+
+      {/* Dark Mode Toggle */}
+<button 
+  className="darkModeButton" 
+  onClick={handleDarkToggle} 
+  aria-label="Toggle dark mode"
+>
+  {darkMode ?  <span style={{ color: "white" }}>⏾</span> : "☀︎"}
+</button>
+
+    </div>
+
       </div>
     </header>
   );
