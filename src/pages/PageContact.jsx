@@ -29,6 +29,7 @@ export default function PageContact() {
       <div className="contactGrid">
        
         <form className="contactForm">
+          
           <label>
             <span>Name</span>
             <input type="text" name="name" required />
