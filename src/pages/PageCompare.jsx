@@ -82,7 +82,8 @@ export default function PageCompare({ onOpenCart }) {
 
   return (
     <div>
-      <h2 className="pageTitle">Compare</h2>
+      <div className="upp"></div>
+    <h2 className="pageTitle1">Compare</h2>
       <p className="pageLead">Pick exactly two products to compare. Use the filters to narrow the list.</p>
 
    
@@ -100,7 +101,7 @@ export default function PageCompare({ onOpenCart }) {
           </select>
         </label>
       </div>
-
+      <div className="catalogPage">
       <div className="comparePickGrid">
         {filtered.map(p => {
           const sel = isSelected(p);
@@ -149,5 +150,7 @@ export default function PageCompare({ onOpenCart }) {
 
       {table}
     </div>
+    </div>
+
   );
 }

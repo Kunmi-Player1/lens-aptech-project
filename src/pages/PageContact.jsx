@@ -21,29 +21,32 @@ export default function PageContact() {
     : 'https://maps.google.com/maps?hl=en&q=Lagos%2C%20Nigeria&t=&z=12&ie=UTF8&iwloc=B&output=embed'
 
   return (
-    <section>
-      <h1 className="pageTitle">Contact</h1>
+    <section className="contactWrapper">
+      <div className="upp"></div>
+      <h1 className="pageTitle1">Contact</h1>
       <p className="pageLead">Send a message and view a live map. If allowed, we’ll detect your current location.</p>
 
-      <div style={{ display: 'grid', gap: '1rem', gridTemplateColumns: '1fr 1fr', alignItems: 'start' }}>
-        <form style={{ display: 'grid', gap: '0.75rem' }}>
+      <div className="contactGrid">
+       
+        <form className="contactForm">
           <label>
-            <div>Name</div>
+            <span>Name</span>
             <input type="text" name="name" required />
           </label>
           <label>
-            <div>Email</div>
+            <span>Email</span>
             <input type="email" name="email" required />
           </label>
           <label>
-            <div>Message</div>
+            <span>Message</span>
             <textarea name="message" rows={5} required />
           </label>
-          <button type="submit">Send</button>
+          <button type="submit" className="contactBtn">Send</button>
         </form>
 
-        <div>
-          <div style={{ height: 320, borderRadius: 12, overflow: 'hidden', border: '1px solid var(--border-color)' }}>
+    
+        <div className="mapContainer">
+          <div className="mapCard">
             <iframe
               title="Map"
               src={mapSrc}
@@ -54,13 +57,13 @@ export default function PageContact() {
               allowFullScreen
             />
           </div>
-          <div style={{ marginTop: '0.5rem' }}>
+          <div className="mapFooter">
             {coords && (
               <a href={`https://maps.google.com/?q=${coords.lat},${coords.lng}`} target="_blank" rel="noreferrer">
                 Open your location in Google Maps
               </a>
             )}
-            {!coords && geoError && <div>{geoError}</div>}
+            {!coords && geoError && <div className="geoError">{geoError}</div>}
           </div>
         </div>
       </div>

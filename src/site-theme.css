@@ -9,15 +9,17 @@
   --brand-color-hover: #0b5ed7;
   --surface-color: #f7f7f8;
   --text-color: #111827;
-  --muted-text-color: #4b5563;
+  --muted-text-color: #6f7173;
   --border-color: #e5e7eb;
-  --max-width: 1100px;
-  
+  --max-width: 1500px;
+
   --nav-color: rgb(245, 240, 230); 
     --nav-font: white;
     --nav-color2: black;
     --nav-borderradius: gray;
-    --body-trans: white
+    --body-trans: white;
+        --text-kit: rgba(203, 196, 196, 0.803);
+
   --anchor-offset: 72px; /* sticky header height used for anchor offset */
 }
 
@@ -38,11 +40,20 @@ body {
   color: var(--text-color);
   transition: background 0.3s, color 0.3s;
 }
+body::-webkit-scrollbar{
+  display: none;
+  width: 12px;
+  background-color: transparent;
+}
+::-webkit-scrollbar-thumb{
+  background-color: var(--muted-text-color);
+  border-radius: 6px;
+}
 .container { max-width: var(--max-width); margin-inline: auto; padding-inline: 1rem; }
 img { max-width: 100%; display: block; }
 
 body.dark {
-  --surface-color:  #121212;
+  --surface-color:  #000000;
   --text-color: #ffffff;
     --nav-color: #202635;
     --nav-font: #414959;
@@ -53,6 +64,8 @@ body.dark {
      --nav-color2: white;
          --nav-borderradius: black;
          --body-trans: black;
+         --muted-text-color: #9e9e9e;
+             --text-kit: rgba(33, 33, 33, 0.879);
 }
 
 /* ========== HEADER (sticky bar + brand) ========== */
@@ -67,13 +80,12 @@ body.dark {
   
   background: var(--nav-color);
   border-bottom: 1px solid transparent;
-align-items: center;
-    margin: 1.5rem 4rem;
-    border-radius: 30px;
-    box-shadow: 0 0.4rem 1.5rem 0.5rem var(--nav-borderradius);
-    padding: 0.5rem 4rem;
-    height: auto;
-
+  align-items: center;
+  margin: 1.5rem 4rem;
+  border-radius: 30px;
+  box-shadow: 0 0.4rem 1.5rem 0.5rem var(--nav-borderradius);
+  padding: 0.5rem 4rem;
+  height: auto;
   /* optional: add shadow if you want it to stand out */
   /* box-shadow: 0 0.4rem 1rem rgba(0,0,0,0.2); */
 }
@@ -120,7 +132,7 @@ align-items: center;
     background-color:var(--nav-font);
     padding: 0.4rem;
     border-radius: 10px; }
-.navLink:hover {color: var(--brand-color-hover); }
+.navLink:hover { }
 .navLinkActive { color: var(--nav-color2); background-color: rgb(141, 141, 141) }
 
 /* HAMBURGER TOGGLE (hidden by default, shown on small screens) */
@@ -216,40 +228,80 @@ align-items: center;
 
 /* ========== MAIN & SECTIONS (content spacing + anchor offset) ========== */
 .mainArea { flex: 1 0 auto; padding-block: 2rem; overflow: visible; }
-.sectionBlock { scroll-margin-top: var(--anchor-offset); padding-block: 2rem; height: 100vh;}
+.sectionBlock { scroll-margin-top: var(--anchor-offset); padding-block: 1rem;}
+.upp {
+  margin-top: 2rem;
+}
+
 
 /* ========== PAGE TEXT (titles, leads) ========== */
 .main2{
   background-color: var(--nav-color);
   border-radius: 30px;
   position: absolute;
-  top: 44rem;
+  top: 47rem;
   left: 4rem;
   z-index: -1;
   box-shadow: 0 0.4rem 1.5rem 0.5rem var(--nav-borderradius);
   text-align: left;
-  padding: 1.3rem 2rem;
+  padding: 2rem 2rem;
   width: 45rem;
 }
 
-.main1::after {
+.backgroundWrapper {
+  width: 100%;
+  height: 100vh; 
+  overflow: hidden;
+}
+
+.backgroundWrapper::after {
   content: "";
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 150px;
+  height: 90px;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0),
+    var(--surface-color)
+  );
+}
+
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  object-fit: cover; 
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out; /* smooth fade */
+}
+
+.background.visible {
+  opacity: 1;
+}
+
+ 
+.sectionBlock::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0px;
   background: linear-gradient(to bottom, transparent, var(--surface-color));
 }
 
 
 .pageTitle1 {
-    font-size: 3.5rem;
+    font-size: 3.8rem;
     font-weight: 900;
     color: var(--text-color);
     margin: 0 0 0.50rem 0;
-
 }
+
 .pageTitle { font-size: 1.75rem; line-height: 1.2; font-weight: 700; margin: 0 0 0.75rem 0; }
 .pageLead { font-size: 1.125rem; color: var(--muted-text-color); margin: 0 0 1px 0; font-weight: 600; }
 .pageDescription {
@@ -269,10 +321,11 @@ align-items: center;
   grid-template-columns: 1fr;
   align-items: start;
   margin-block: 1rem 1.25rem;
-  border: 1px solid var(--border-color);
+  border: 1px solid var();
   padding: 0.75rem;
   border-radius: 0.75rem;
-  background: var(--surface-color);
+  background: var(--nav-color);
+   box-shadow: 0 0.2rem 0.5rem 0.1px var(--nav-borderradius);
 }
 @media (min-width: 700px) { .filterBar { grid-template-columns: 1fr 1fr; } }
 .filterOption { display: grid; gap: 0.35rem; }
@@ -284,25 +337,52 @@ align-items: center;
    ========================================================= */
 .catalogGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+
+}
+
+.catalogPage {
+  height: 70vh;
+  padding: 1rem;
+  overflow-y: scroll;
+  border-radius: 20px;
+    box-shadow: 0 0.2rem 0.5rem 0.1px var(--nav-borderradius);
+    background-color: var(--text-kit);
+    border-top: 10px solid var(--nav-color);
+    border-left: 10px solid var(--nav-color);
+    border-bottom: 10px solid var(--nav-color);    
+}
+
+.catalogPage::-webkit-scrollbar{
+
+  width: 12px;
+  background-color: var(--nav-color );
 }
 
 .productCard {
+  background: var(--nav-color);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
   display: flex;
   flex-direction: column;
-  background: #fff;
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.productCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.12);
 }
 
 /* Wrapper box holds the ratio */
 .productMediaBox {
   width: 100%;
-  aspect-ratio: 4 / 5;
-  background: #f4f4f5;
-  border-bottom: 1px solid var(--border-color);
+  height: 200px;
+  background: #fafafa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 }
 
@@ -313,24 +393,46 @@ align-items: center;
   object-fit: cover;
 }
 
-.productMain { display: grid; gap: 0.5rem; padding: 0.9rem 1rem; }
-.productTitle { font-size: 1.05rem; margin: 0; font-weight: 700; }
-.productMeta { color: var(--muted-text-color); font-size: 0.9rem; }
-.productPrice { font-weight: 700; }
-
-.productActions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: .75rem;
-  margin-top: .5rem;
+.productMain {
+  padding: 1rem 1.2rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
+
+
+.productTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 0.3rem;
+}
+.productMeta {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 0.8rem;
+}
+
+
+.productPrice {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+.productActions {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: auto; /* pushes buttons to bottom if cards are uneven */
+}
+
 .buttonPrimary, .buttonLink {
   display: inline-flex; align-items: center; justify-content: center;
   height: 38px; padding: 0 .9rem; border-radius: .5rem; white-space: nowrap; text-decoration: none;
 }
 .buttonPrimary { background: var(--brand-color); color: #fff; border: 1px solid var(--brand-color); }
 .buttonPrimary:active { transform: translateY(1px); }
-.buttonLink { background: #fff; border: 1px solid var(--border-color); color: var(--text-color); }
+.buttonLink { background: #fff; border: 1px solid var(--border-color); color: black; }
 
 /* =========================================================
    COMPARE — PICK GRID & TABLE (limit-to-two, layout)
@@ -445,7 +547,7 @@ align-items: center;
 }
 
 /* ========== FOOTER (brand, text line) ========== */
-.siteFooter { border-top: 1px solid var(--border-color); background: #fff; }
+.siteFooter {border-radius: 30px 30px 0 0 ; background: var(--nav-color); }
 .siteFooterInner { display: flex; flex-direction: column; gap: 0.75rem; align-items: center; justify-content: space-between; padding-block: 1rem; }
 .footerBrand { display: flex; align-items: center; gap: 0.5rem; }
 .footerLogo { width: 20px; height: 20px; display: block; }
@@ -482,4 +584,111 @@ iframe { position: relative; z-index: 0; }
 /* Motion safety for users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .navArea { transition: none; }
+}
+
+.contactWrapper {
+  padding: 2rem;
+  color: var(--text-color, #eaeaea);
+  background: var(--surface-color, #0d0d0d);
+}
+
+.contactGrid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+
+.contactForm {
+  width: 45rem;
+  display: grid;
+  gap: 1rem;
+  background: var(--nav-color);
+  padding: 2rem;
+  border-radius: 14px;
+  border: 1px solid var(--border-color, #262626);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.contactForm label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.contactForm input,
+.contactForm textarea {
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-color, #333);
+  background: #1e1e1e;
+  color: #f1f1f1;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.contactForm input:focus,
+.contactForm textarea:focus {
+  border-color: var(--accent-color, #4facfe);
+  box-shadow: 0 0 6px rgba(79,172,254,0.4);
+}
+
+/* Button */
+.contactBtn {
+  margin-top: 0.5rem;
+  padding: 0.9rem;
+  border-radius: 10px;
+  border: none;
+  background: var(--accent-color, #4facfe);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+}
+
+.contactBtn:hover {
+  background: #3a8de0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+}
+
+
+.mapContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.mapCard {
+  height: 26rem;
+  width: 40rem;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border-color, #262626);
+  background: #161616;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.mapFooter {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.mapFooter a {
+  color: var(--accent-color, #4facfe);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.mapFooter a:hover {
+  text-decoration: underline;
+}
+
+.geoError {
+  color: #ff5c5c;
+  font-weight: 500;
 }

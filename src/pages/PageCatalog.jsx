@@ -121,7 +121,7 @@ export default function PageCatalog({ onOpenCart }) {
 
   return (
     <div>
-      <h2 className="pageTitle">Catalog</h2>
+            <h2 className="pageTitle1">Catalog</h2>
       <p className="pageLead">Browse frames and lenses. Filter by brand or category.</p>
 
       <div className="filterBar">
@@ -138,30 +138,35 @@ export default function PageCatalog({ onOpenCart }) {
           </select>
         </label>
       </div>
+          <div className="catalogPage">
 
-      <div className="catalogGrid">
-        {filtered.map(p => (
-          <article className="productCard" key={p.id}>
-            <div className="productMediaBox">
-              <img
-                className="productMedia"
-                src={`/assets/frames/${p.image}`}
-                onError={e => (e.currentTarget.src = "/assets/icons/lens-shop-logo.svg")}
-                alt=""
-              />
-            </div>
-            <div className="productMain">
-              <h3 className="productTitle">{p.title}</h3>
-              <div className="productMeta">{p.brand} · {p.category}</div>
-              <div className="productPrice">₦{p.price.toLocaleString("en-NG")}</div>
-              <div className="productActions">
-                <button className="buttonLink" onClick={() => openSpec(p)}>View spec sheet</button>
-                <button className="buttonPrimary" onClick={() => addToCart(p)}>Add to cart</button>
+
+      <div className="cock">
+        <div className="catalogGrid">
+          {filtered.map(p => (
+            <article className="productCard" key={p.id}>
+              <div className="productMediaBox">
+                <img
+                  className="productMedia"
+                  src={`/assets/frames/${p.image}`}
+                  onError={e => (e.currentTarget.src = "/assets/icons/lens-shop-logo.svg")}
+                  alt=""
+                />
               </div>
-            </div>
-          </article>
-        ))}
+              <div className="productMain">
+                <h3 className="productTitle">{p.title}</h3>
+                <div className="productMeta">{p.brand} · {p.category}</div>
+                <div className="productPrice">₦{p.price.toLocaleString("en-NG")}</div>
+                <div className="productActions">
+                  <button className="buttonLink" onClick={() => openSpec(p)}>View spec sheet</button>
+                  <button className="buttonPrimary" onClick={() => addToCart(p)}>Add to cart</button>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
+
 
       {specItem && (
         <div className="specLayer" onClick={closeSpec}>
@@ -204,6 +209,8 @@ export default function PageCatalog({ onOpenCart }) {
         </div>
       )}
     </div>
+    </div>
+
   );
 }
 

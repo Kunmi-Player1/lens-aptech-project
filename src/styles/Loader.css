@@ -4,7 +4,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.6); 
+  background:  black; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,7 +17,7 @@
   height: 4em;
   text-indent: -9999em;
   border-radius: 50%;
-  background-color: transparent;
+  background-color: black;
 }
 
 .loading:after {
