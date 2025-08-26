@@ -48,7 +48,7 @@ export default function PageHome() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % wallpapers.length);
-    }, 5000);
+    }, 6000); // 6s cycle
     return () => clearInterval(interval);
   }, [darkMode, wallpapers.length]);
 
@@ -67,7 +67,7 @@ export default function PageHome() {
           <img
             key={index}
             className={`background ${
-              index === currentIndex ? "visible" : ""
+              index === currentIndex ? "visible" : "hidden"
             }`}
             src={src}
             alt={`Background ${index}`}
@@ -76,7 +76,9 @@ export default function PageHome() {
       </div>
 
       <div className="main2">
-        <h1 className="pageTitle1">Persol Eyewear</h1>
+        <h1 className="pageTitle1">
+          Persol <span className="highlight">Eyewear</span>
+        </h1>
         <p className="pageLead">
           Discover timeless Italian craftsmanship with modern style.
         </p>
