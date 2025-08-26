@@ -190,14 +190,29 @@ export default function AppShell() {
         <section id="contact" className="sectionBlock container"><PageContact /></section>
       </main>
 
-      <footer className="siteFooter">
-        <div className="siteFooterInner container">
-          <a className="footerBrand" href="#home" onClick={() => handleNavClick("home")}>
-            <img className="footerLogo" src="/assets/icons/lens-shop-logo.svg" alt="" />
-            <span className="footerText">Lens Shop</span>
-          </a>
-        </div>
-      </footer>
+<footer className="siteFooter">
+  <div className="siteFooterInner">
+  
+    <div className="footerBrand">
+      <span className="footerText">Lens Shop</span>
+    </div>
+
+
+    <ul className="footerLinks">
+      <li><a href="#privacy">Privacy Policy</a></li>
+      <li><a href="#terms">Terms of Service</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#contact">Contact Us</a></li>
+      <li><a href="#help">Help Center</a></li>
+    </ul>
+
+    {/* Rating / Extra Info */}
+    <div className="footerExtra">
+      <img src="/assets/icons/rating-esrb.svg" alt="Rating" className="footerRating" />
+      <p>© 2025 Lens Shop. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
 
       {openCart && <CartPanel open={openCart} onClose={() => setOpenCart(false)} />}
     </>

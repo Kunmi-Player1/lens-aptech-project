@@ -31,23 +31,23 @@ export default function PageContact() {
         <form className="contactForm">
           
           <label>
-            <span>Full Name</span>
+            <span className='pool'>Full Name</span>
             <input type="text" name="fullname" required />
           </label>
           <label>
-            <span>Last Name</span>
+            <span className='pool'>Last Name</span>
             <input type="text" name="lastName" required />
           </label>
           <label>
-            <span>Email</span>
+            <span className='pool'>Email</span>
             <input type="email" name="email" required />
           </label>
           <label>
-            <span>Phone Number</span>
+            <span className='pool'>Phone Number</span>
             <input type="tel" name="phone" required />
           </label>
           <label>
-            <span>Message</span>
+            <span className='pool'>Message</span>
             <textarea name="message" rows={5} required />
           </label>
           <button type="submit" className="contactBtn">Send</button>

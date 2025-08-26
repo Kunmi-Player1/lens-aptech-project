@@ -48,7 +48,8 @@ export default function PageHome() {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % wallpapers.length);
-    }, 6000); // 6s cycle
+    }, 5000);
+
     return () => clearInterval(interval);
   }, [darkMode, wallpapers.length]);
 
@@ -61,14 +62,12 @@ export default function PageHome() {
   }
 
   return (
-    <section className="sectionBlock" id="home">
+    <section className="dang sectionBlock" id="home">
       <div className="main1 backgroundWrapper">
         {wallpapers.map((src, index) => (
           <img
             key={index}
-            className={`background ${
-              index === currentIndex ? "visible" : "hidden"
-            }`}
+            className={`background ${index === currentIndex ? "visible" : ""}`}
             src={src}
             alt={`Background ${index}`}
           />
@@ -76,9 +75,7 @@ export default function PageHome() {
       </div>
 
       <div className="main2">
-        <h1 className="pageTitle1">
-          Persol <span className="highlight">Eyewear</span>
-        </h1>
+        <h1 className="pageTitle1">Persol <span className="highlight">Eyewear</span></h1>
         <p className="pageLead">
           Discover timeless Italian craftsmanship with modern style.
         </p>
