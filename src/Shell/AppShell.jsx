@@ -206,9 +206,8 @@ export default function AppShell() {
       <li><a href="#help">Help Center</a></li>
     </ul>
 
-    {/* Rating / Extra Info */}
     <div className="footerExtra">
-      <img src="/assets/icons/rating-esrb.svg" alt="Rating" className="footerRating" />
+      <img src="../assets/wallpaper/rating.png" alt="Rating" className="footerRating" />
       <p>© 2025 Lens Shop. All Rights Reserved.</p>
     </div>
   </div>
