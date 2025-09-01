@@ -74,7 +74,7 @@ function Header({ onOpenCart, activeId, qty, navOpen, onToggleNav, onNavClick })
   onClick={handleDarkToggle} 
   aria-label="Toggle dark mode"
 >
-  {darkMode ?  <span style={{ color: "white" }}>⏾</span> : "☀︎"}
+  {darkMode ?  <span className="lightdark" style={{ color: "white" }}>⏾</span> : "☀︎"}
 </button>
 
     </div>

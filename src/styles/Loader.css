@@ -8,23 +8,25 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  z-index: 9999;  
+  transition: all 3s ease-in-out;
 }
 
 .loading {
   position: relative;
-  width: 4em;
-  height: 4em;
+  width: 1em;
+  height: 1em;
   text-indent: -9999em;
   border-radius: 50%;
   background-color: black;
+    transition: all 3s ease-in-out;
 }
 
 .loading:after {
   content: '';
   display: block;
-  width: 1em;
-  height: 1em;
+  width: 0.8em;
+  height: 0.8em;
   margin: auto;
   -webkit-animation: spinner 1s infinite linear;
   animation: spinner 1s infinite linear;

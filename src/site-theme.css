@@ -11,7 +11,7 @@
   --text-color: #111827;
   --muted-text-color: #6f7173;
   --border-color: #e5e7eb;
-  --max-width: 1500px;
+  --max-width: 90%;
 
   --nav-color: rgb(245, 240, 230); 
     --nav-font: white;
@@ -42,7 +42,6 @@ body {
   transition: background 0.3s, color 0.3s;
 }
 body::-webkit-scrollbar{
-  display: none;
   width: 12px;
   background-color: transparent;
 }
@@ -58,7 +57,7 @@ body.dark {
   --text-color: #ffffff;
     --nav-color: #202635;
     --nav-font: #414959;
-      --brand-color: #0d6efd;
+      --brand-color: #0d6efd;  
   --brand-color-hover: #0b5ed7;
   --muted-text-color: #4b5563;
   --border-color: #e5e7eb;
@@ -81,12 +80,13 @@ body.dark {
   z-index: 1;   /* stays above everything */
   
   background: var(--nav-color);
+
   border-bottom: 1px solid transparent;
   align-items: center;
-  margin: 1.5rem 4rem;
-  border-radius: 30px;
-  box-shadow: 0 0.4rem 1.5rem 0.5rem var(--nav-borderradius);
-  padding: 0rem 3rem;
+  margin: 1.2rem 3rem;
+  border-radius: 25px;
+  box-shadow: 0 0.4rem 1.5rem 0.2rem var(--nav-borderradius);
+  padding: 0rem 2.4rem;
   height: auto;
   /* optional: add shadow if you want it to stand out */
   /* box-shadow: 0 0.4rem 1rem rgba(0,0,0,0.2); */  
@@ -97,17 +97,16 @@ body.dark {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding-block: 0.75rem;
+  padding-block: 0.55rem;
 }
 .brand { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit; }
-.brandLogo { width: 70px; height: 70px; display: block; }
-.brandText { font-size: 1.3rem;font-weight: 600; }
-
+.brandLogo { width: 50px; height: 50px; display: block; }
+.brandText { font-size: 0.8rem;font-weight: 600; }
 .darkModeButton {
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1.8rem;
+  font-size: 1.3rem;
   margin-left: 1rem;
   margin-bottom: 0.2rem;
 }
@@ -126,8 +125,8 @@ body.dark {
   gap: 1rem;
   align-items: center;
 }
-.navLink {     font-size: 1rem;
-    font-weight: 700;
+.navLink {     font-size: 0.7rem;
+    font-weight: 500;
     color: var(--nav-color2);
     text-decoration: none;
     margin-left: 0.8rem;
@@ -135,7 +134,7 @@ body.dark {
     padding: 0.4rem;
     border-radius: 10px; }
 .navLink:hover { }
-.navLinkActive { color: var(--nav-color2); border: 5px solid rgb(141, 141, 141); border-radius: 15px;}
+.navLinkActive { color: var(--nav-color2); border: 3.5px solid rgb(141, 141, 141); border-radius: 10px;}
 
 /* HAMBURGER TOGGLE (hidden by default, shown on small screens) */
 .navToggleButton {
@@ -267,9 +266,9 @@ body.dark {
 
   display: flex;
   flex-direction: column;
-  padding: 1.4rem;
+  padding: 1rem;
   text-align: center;
-  width: 43rem;
+  width: 34rem;
   border-radius: 30px;
   background-color: var(--nav-color);
   box-shadow: 0 0.4rem 1.5rem 0.5rem var(--nav-borderradius);
@@ -339,17 +338,17 @@ body.dark {
 
 
 .pageTitle1 {
-    font-size: 3.5rem;
+    font-size: 2.7rem;
     font-weight: 900;
     color: var(--text-color);
     margin: 0 0 0.50rem 0;
 }
 
 .pageTitle { font-size: 1.75rem; line-height: 1.2; font-weight: 700; margin: 0 0 0.75rem 0; }
-.pageLead { font-size: 1.125rem; color: var(--muted-text-color); margin: 0 0 1px 0; font-weight: 600; }
+.pageLead { font-size: 1rem; color: var(--muted-text-color); margin: 0 0 1px 0; font-weight: 600; }
 .pageDescription {
   margin: 0 0 1rem 0;
-  font-size: 1rem;
+  font-size: 0.8rem;
   line-height: 1.5;
   font-weight: 600;
   color: var(--text-color);
@@ -516,14 +515,14 @@ body.dark {
   background-color: var(--nav-font);
   border: transparent;
   border-radius: 999px;
-  padding: .5rem .75rem;
+  padding: .3rem .5rem;
   cursor: pointer;
 }
-.cartHeaderIcon { font-size: 1rem; line-height: 1; }
+.cartHeaderIcon { font-size: 0.7rem; line-height: 1; }
 .cartHeaderBadge {
   min-width: 1.25rem; height: 1.25rem; border-radius: 999px;
   display: inline-grid; place-items: center;
-  font-size: .75rem; background: var(--brand-color); color: #fff;
+  font-size:  .55rem; background: var(--brand-color); color: #fff;
   padding: 0 .25rem;
 }
 
@@ -552,6 +551,12 @@ body.dark {
   animation: cartPopIn .25s ease-out;
   overflow: hidden;
 }
+/* 
+.lightdark{
+  height: 0.7rem;
+  width: 0.7rem;
+} */
+
 @keyframes cartPopIn {
   from { transform: scale(0.95) translateY(10px); opacity: 0; }
   to   { transform: scale(1) translateY(0); opacity: 1; }
@@ -562,7 +567,7 @@ body.dark {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 1.25rem;
+  padding: 0rem 0rem;
 }
 .cartTitle { margin: 0; font-size: 1.25rem; font-weight: 700; }
 .cartClose {
