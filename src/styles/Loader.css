@@ -14,8 +14,7 @@
 
 .loading {
   position: relative;
-  width: 1em;
-  height: 1em;
+
   text-indent: -9999em;
   border-radius: 50%;
   background-color: black;
@@ -25,8 +24,8 @@
 .loading:after {
   content: '';
   display: block;
-  width: 0.8em;
-  height: 0.8em;
+  width: 1em;
+  height: 1em;
   margin: auto;
   -webkit-animation: spinner 1s infinite linear;
   animation: spinner 1s infinite linear;
