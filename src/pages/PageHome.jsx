@@ -17,12 +17,18 @@ export default function PageHome() {
     "/assets/wallpaper/clear.jpg",
     "/assets/wallpaper/clear2.jpg",
     "/assets/wallpaper/clear3.png",
+    "/assets/wallpaper/clear4.jpg",
+    "/assets/wallpaper/clear5.jpg",
+    "/assets/wallpaper/clear6.jpg",
   ];
 
   const darkWallpapers = [
     "/assets/wallpaper/black1.jpg",
     "/assets/wallpaper/black2.jpg",
     "/assets/wallpaper/black3.jpg",
+    "/assets/wallpaper/black4.jpg",
+    "/assets/wallpaper/black5.jpg",
+    "/assets/wallpaper/black6.jpg",
   ];
 
   const wallpapers = darkMode ? darkWallpapers : lightWallpapers;

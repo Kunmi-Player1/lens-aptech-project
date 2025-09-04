@@ -9,7 +9,7 @@
   --text-color: #111827;
   --muted-text-color: #6f7173;
   --border-color: #e5e7eb;
-  --max-width: 92.5%;
+  --max-width: 93%;
 
   --nav-color: rgb(245, 240, 230); 
     --nav-font: white;
@@ -43,13 +43,13 @@ body {
 }
 body::-webkit-scrollbar{
   width: 8px;
-  background-color: transparent;
+  visibility: hidden;
 }
 ::-webkit-scrollbar-thumb{
   background-color: var(--muted-text-color);
   border-radius: 6px;
 }
-.container { max-width: var(--max-width); margin-inline: auto; padding-inline: 1rem; }
+.container { max-width: var(--max-width); margin-inline: auto;  }
 img { max-width: 100%; display: block; }
 
 body.dark {
@@ -226,7 +226,7 @@ body.dark {
   .navList {
     display: flex;
     flex-direction: column;
-    gap: .75rem;
+    gap: 1rem;
     padding: 1rem;
     margin: 0;
   }
@@ -267,7 +267,7 @@ body.dark {
   transform: translateX(-50%); /* center horizontally */
 
   
-  visibility: hidden;
+ 
 
   display: flex;
   flex-direction: column;
@@ -343,7 +343,7 @@ body.dark {
 
 
 .pageTitle1 {
-    font-size: 2rem;
+    font-size: 2.7rem;
     font-weight: 900;
     color: var(--text-color);
     margin: 0 0 0.50rem 0;
@@ -723,6 +723,187 @@ body.dark {
   gap: 1.25rem;
 }
 
+/* FAQ Page Styles */
+.faq-page .pageTitle2 {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--text-color);
+  margin: 0 0 0.50rem 0;
+}
+
+.faq-page .pageLead2 {
+  font-size: 0.8rem;
+  color: var(--muted-text-color);
+  margin: 0 0 1rem 0;
+  font-weight: 600;
+}
+
+.faq-page {
+  padding: 2rem 0;
+}
+
+.faq-list {
+  margin-top: 2rem;
+}
+
+.faq-item {
+  padding: 1.5rem 0;
+}
+
+.faq-question {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+  cursor: pointer;
+  position: relative;
+  padding-right: 2rem;
+
+}
+
+.faq-question::after {
+  content: "+";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  font-weight: 300;
+  transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-question::after {
+  content: "−";
+}
+
+.faq-answer {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--muted-text-color);
+  margin-bottom: 1.5rem;
+  display: none;
+}
+
+.faq-item.active .faq-answer {
+  display: block;
+}
+
+.faq-answer p {
+  margin: 0;
+}
+
+.divider {
+  height: 1px;
+  border-bottom:3px solid var(--border-color);
+  margin: 1rem 0;
+  width: 100%;
+}
+
+
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .faq-page {
+    padding: 4rem 0 0 0;
+  }
+  
+  .faq-item {
+    padding: 1.25rem 0;
+  }
+  
+  .faq-question {
+    font-size: 1.1rem;
+    padding-right: 1.5rem;
+  }
+  
+  .faq-answer {
+    font-size: 0.95rem;
+  }
+  
+  .divider {
+    margin: 1.25rem 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .faq-page {
+    padding: 3rem 0 0 0;
+  }
+  
+  .faq-item {
+    padding: 1rem 0;
+  }
+  
+  .faq-question {
+    font-size: 1.05rem;
+    padding-right: 1.5rem;
+  }
+  
+  .faq-answer {
+    font-size: 0.95rem;
+  }
+  
+  .divider {
+    margin: 1.25rem 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .faq-page .pageTitle2 {
+    font-size: 1.50rem;
+  }
+
+  .faq-page .pageLead2 {
+    font-size: 0.75rem;
+  } 
+}
+
+@media (max-width: 480px) {
+  .faq-question {
+    font-size: 0.7rem;
+    padding-right: 1.25rem;
+  }
+  
+  .faq-answer {
+    font-size: 0.9rem;
+  }
+  
+  .divider {
+    margin: 1rem 0;
+  }
+}
+
+@media (max-width: 430px) {
+  .faq-page .pageTitle2 {
+    font-size: 1.25rem;
+  }
+
+  .faq-page .pageLead2 {
+    font-size: 0.7rem;
+  } 
+}
+
+/* Animation for FAQ items */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.faq-item {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.faq-item:nth-child(even) {
+  animation-delay: 0.1s;
+}
+
 .cartItemRow {
   display: grid;
   grid-template-columns: 80px 1fr auto auto;
@@ -731,7 +912,6 @@ body.dark {
   padding: 1rem;
   border-radius: 1rem;
   background: var(--nav-color);
-  border:1px ridge var(--border-color);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -1067,7 +1247,7 @@ body.dark {
 .siteFooter {
   background: var(--nav-color );
   color: #fff;
-  padding:  1.5rem 0 0 1rem;
+  padding:  2rem 0 1rem 0rem;
   text-align: center;
   font-size: 0.9rem;
 }
@@ -1245,7 +1425,7 @@ body.dark .contactGrid {
   margin-top: 0.5rem;
   padding: 1rem 1.2rem;
   border: none;
-  background: var(--surface-color);
+  background: var(--nav-color);
   border-radius: 0.75rem;
   font-size: 1rem;
   color: var(--text-color);
@@ -1272,7 +1452,7 @@ body.dark .contactGrid {
   color: white;
   border: none;
   border-radius: 0.75rem;
-  font-size: 75rem;
+  font-size: 0.75rem;
   font-weight: 600;
   cursor: pointer;
   box-shadow: 0 0.25rem 1rem rgba(13, 110, 253, 0.3);
@@ -1469,14 +1649,14 @@ body.dark .contactGrid {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: transform .25s ease, opacity .2s ease;
+    transition: all transform .25s ease, all opacity .2s ease;
     
     display: block;
     z-index: 10015;
   }
 
   .navArea[data-open="true"] {
-    transform: translateY(0);
+    transform: translateY(-17%);
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -1485,14 +1665,19 @@ body.dark .contactGrid {
   .navList {
     display: flex;
     flex-direction: column;
-    gap: .75rem;
+    gap: 4rem;
     padding: 1rem;
     margin: 0;
   }
 
   .navLink { 
-    padding: .75rem 1rem; 
+    padding: .75rem 30rem; 
     font-size: 1.1rem;
+    border: none;
+    background-color: transparent;
+      border-bottom: 3px solid var(--border-color);
+      border-radius: 0%;
+    
   }
   .brand {
     margin-left: 3rem;
@@ -1513,17 +1698,11 @@ body.dark .contactGrid {
 }
 @media screen and (max-width: 1036px) {
   .sectionBlock {
-    padding: 2rem 1rem;
-
     padding-block: 0;
   }
 
   .dang {
     height: 93vh;
-  }
-
-  .main2 {
-
   }
 }
 
@@ -1546,7 +1725,7 @@ body.dark .contactGrid {
 
   .main2 h1 {
     padding: 0;
-    font-size: 3rem;
+    font-size: 2.4rem;
   }
 
   .main2 p {

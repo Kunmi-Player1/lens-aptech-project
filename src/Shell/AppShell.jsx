@@ -7,6 +7,7 @@
   import CartPanel from "../Components/CartPanel.jsx";
   import "../styles/AppShell.css"
   import Loader from "../Components/Loader.jsx";
+  import PageQuestiona from "../pages/PageQuestiona.jsx";
 
   function Header({ onOpenCart, activeId, qty, navOpen, onToggleNav, onNavClick }) {
 
@@ -187,6 +188,7 @@
           <section id="home" className="sectionBlock container"><PageHome /></section>
           <section id="catalog" className="sectionBlock container"><PageCatalog onOpenCart={() => setOpenCart(true)} /></section>
           <section id="compare" className="sectionBlock container"><PageCompare onOpenCart={() => setOpenCart(true)} /></section>
+          <section id="question" className="sectionBlock container"><PageQuestiona /></section>
           <section id="contact" className="sectionBlock container"><PageContact /></section>
         </main>
 
