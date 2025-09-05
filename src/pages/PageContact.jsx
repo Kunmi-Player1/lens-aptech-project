@@ -39,18 +39,24 @@ export default function PageContact() {
       >
         <form style={{ display: "grid", gap: "0.75rem" }}>
           <label>
-            <div>Name</div>
-            <input type="text" name="name" required />
+            <span className="pool">Last Name</span>
+            <input type="text" name="lastName" required />
           </label>
           <label>
-            <div>Email</div>
+            <span className="pool">Email</span>
             <input type="email" name="email" required />
           </label>
           <label>
-            <div>Message</div>
+            <span className="pool">Phone Number</span>
+            <input type="tel" name="phone" required />
+          </label>
+          <label>
+            <span className="pool">Message</span>
             <textarea name="message" rows={5} required />
           </label>
-          <button type="submit">Send</button>
+          <button type="submit" className="contactBtn">
+            Send
+          </button>
         </form>
 
         <div>
@@ -82,7 +88,7 @@ export default function PageContact() {
                 Open your location in Google Maps
               </a>
             )}
-            {!coords && geoError && <div>{geoError}</div>}
+            {!coords && geoError && <div className="geoError">{geoError}</div>}
           </div>
         </div>
       </div>

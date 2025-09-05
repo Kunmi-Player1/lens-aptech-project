@@ -81,19 +81,19 @@ export default function AppShell() {
   const [activeId, setActiveId] = useState("home");
   const [openCart, setOpenCart] = useState(false);
   const [qty, setQty] = useState(Cart.totals().qty);
+  const [navOpen, setNavOpen] = useState(false);
   const sectionsRef = useRef({});
 
   useEffect(() => {
-    function onChange() {
-      setQty(Cart.totals().qty);
-    }
+    const onChange = () => setQty(Cart.totals().qty);
     window.addEventListener("cart:change", onChange);
     return () => window.removeEventListener("cart:change", onChange);
   }, []);
 
+  // Lock background scroll when cart or nav is open
   useEffect(() => {
-    document.body.style.overflow = openCart ? "hidden" : "auto";
-  }, [openCart]);
+    document.body.style.overflow = openCart || navOpen ? "hidden" : "auto";
+  }, [openCart, navOpen]);
 
   useEffect(() => {
     const sections = ["home", "catalog", "compare", "contact"].map((id) =>

@@ -83,5 +83,35 @@
     "diameter": "14.2 mm",
     "wear": "Daily disposable",
     "care": "Clean with microfiber cloth. Store in a dry case."
+  },
+  {
+    "id": "hydrosoft-daily-contacts-30",
+    "title": "HydroSoft Daily Contacts (30-pack)",
+    "brand": "HydroSoft",
+    "category": "contact_lenses",
+    "price": 25000,
+    "image": "hydrosoft-daily-contacts-30.jpeg",
+    "specDoc": "hydrosoft-daily-contacts-30-features.docx",
+    "material": "Hydrogel",
+    "waterContent": "58%",
+    "baseCurve": "8.6 mm",
+    "diameter": "14.2 mm",
+    "wear": "Daily disposable",
+    "care": "Clean with microfiber cloth. Store in a dry case." 
+  },
+  {
+        "id": "hydrosoft-daily-contacts-30",
+    "title": "HydroSoft Daily Contacts (30-pack)",
+    "brand": "HydroSoft",
+    "category": "contact_lenses",
+    "price": 25000,
+    "image": "hydrosoft-daily-contacts-30.jpeg",
+    "specDoc": "hydrosoft-daily-contacts-30-features.docx",
+    "material": "Hydrogel",
+    "waterContent": "58%",
+    "baseCurve": "8.6 mm",
+    "diameter": "14.2 mm",
+    "wear": "Daily disposable",
+    "care": "Clean with microfiber cloth. Store in a dry case." 
   }
 ]

@@ -139,75 +139,76 @@ export default function PageCompare({ onOpenCart }) {
           </select>
         </label>
       </div>
-
-      <div className="comparePickGrid">
-        {filtered.map((p) => {
-          const sel = isSelected(p);
-          const atLimit = selected.length >= 2 && !sel;
-          return (
-            <article
-              className={sel ? "productCard pickSelected" : "productCard"}
-              key={p.id}
-            >
-              <div className="productMediaBox">
-                <img
-                  className="productMedia"
-                  src={`/assets/frames/${p.image}`}
-                  onError={(e) =>
-                    (e.currentTarget.src = "/assets/icons/lens-shop-logo.svg")
-                  }
-                  alt=""
-                />
-              </div>
-              <div className="productMain">
-                <h3 className="productTitle">{p.title}</h3>
-                <div className="productMeta">
-                  {p.brand} · {p.category}
-                </div>
-                <div className="productPrice">
-                  ₦{p.price.toLocaleString("en-NG")}
-                </div>
-                <div className="productActions">
-                  <button
-                    className="pickButton"
-                    aria-pressed={sel ? "true" : "false"}
-                    disabled={atLimit}
-                    onClick={() => toggle(p)}
-                  >
-                    {sel ? "Selected" : "Select"}
-                  </button>
-                  <button
-                    className="buttonLink"
-                    onClick={() =>
-                      Cart.add(
-                        {
-                          id: p.id,
-                          title: p.title,
-                          price: p.price,
-                          image: p.image,
-                        },
-                        1
-                      )
+      <div className="catalogPage">
+        <div className="comparePickGrid">
+          {filtered.map((p) => {
+            const sel = isSelected(p);
+            const atLimit = selected.length >= 2 && !sel;
+            return (
+              <article
+                className={sel ? "productCard pickSelected" : "productCard"}
+                key={p.id}
+              >
+                <div className="productMediaBox">
+                  <img
+                    className="productMedia"
+                    src={`/assets/frames/${p.image}`}
+                    onError={(e) =>
+                      (e.currentTarget.src = "/assets/icons/lens-shop-logo.svg")
                     }
-                  >
-                    Quick add
-                  </button>
+                    alt=""
+                  />
                 </div>
-              </div>
-            </article>
-          );
-        })}
-      </div>
-
-      {selected.length === 2 && (
-        <div className="compareActions">
-          <button className="buttonPrimary" onClick={addBoth}>
-            Add both to cart
-          </button>
+                <div className="productMain">
+                  <h3 className="productTitle">{p.title}</h3>
+                  <div className="productMeta">
+                    {p.brand} · {p.category}
+                  </div>
+                  <div className="productPrice">
+                    ₦{p.price.toLocaleString("en-NG")}
+                  </div>
+                  <div className="productActions">
+                    <button
+                      className="pickButton"
+                      aria-pressed={sel ? "true" : "false"}
+                      disabled={atLimit}
+                      onClick={() => toggle(p)}
+                    >
+                      {sel ? "Selected" : "Select"}
+                    </button>
+                    <button
+                      className="buttonLink"
+                      onClick={() =>
+                        Cart.add(
+                          {
+                            id: p.id,
+                            title: p.title,
+                            price: p.price,
+                            image: p.image,
+                          },
+                          1
+                        )
+                      }
+                    >
+                      Quick add
+                    </button>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
-      )}
 
-      {table}
+        {selected.length === 2 && (
+          <div className="compareActions">
+            <button className="buttonPrimary" onClick={addBoth}>
+              Add both to cart
+            </button>
+          </div>
+        )}
+
+        {table}
+      </div>
     </div>
   );
 }

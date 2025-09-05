@@ -175,90 +175,94 @@ export default function PageCatalog({ onOpenCart }) {
           </select>
         </label>
       </div>
-
-      <div className="catalogGrid">
-        {filtered.map((p) => (
-          <article className="productCard" key={p.id}>
-            <div className="productMediaBox">
-              <img
-                className="productMedia"
-                src={`/assets/frames/${p.image}`}
-                onError={(e) =>
-                  (e.currentTarget.src = "/assets/icons/lens-shop-logo.svg")
-                }
-                alt=""
-              />
-            </div>
-            <div className="productMain">
-              <h3 className="productTitle">{p.title}</h3>
-              <div className="productMeta">
-                {p.brand} · {p.category}
-              </div>
-              <div className="productPrice">
-                ₦{p.price.toLocaleString("en-NG")}
-              </div>
-              <div className="productActions">
-                <button className="buttonLink" onClick={() => openSpec(p)}>
-                  View spec sheet
-                </button>
-                <button className="buttonPrimary" onClick={() => addToCart(p)}>
-                  Add to cart
-                </button>
-              </div>
-            </div>
-          </article>
-        ))}
-      </div>
-
-      {specItem && (
-        <div className="specLayer" onClick={closeSpec}>
-          <div
-            className="specPanel"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Product specification"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <header className="specHeader">
-              <div className="specTitle">{specItem.title}</div>
-              <button className="specClose" onClick={closeSpec}>
-                Close
-              </button>
-            </header>
-
-            <div className="specBody">
-              <div className="specImage">
+      <div className="catalogPage">
+        <div className="catalogGrid">
+          {filtered.map((p) => (
+            <article className="productCard" key={p.id}>
+              <div className="productMediaBox">
                 <img
-                  src={`/assets/frames/${specItem.image}`}
+                  className="productMedia"
+                  src={`/assets/frames/${p.image}`}
                   onError={(e) =>
                     (e.currentTarget.src = "/assets/icons/lens-shop-logo.svg")
                   }
                   alt=""
                 />
               </div>
-              <div className="specDetails">
-                <dl className="specList">
-                  {specPairs(specItem).map(([k, v], i) => (
-                    <Fragment key={i}>
-                      <dt>{k}</dt>
-                      <dd>{v}</dd>
-                    </Fragment>
-                  ))}
-                </dl>
+              <div className="productMain">
+                <h3 className="productTitle">{p.title}</h3>
+                <div className="productMeta">
+                  {p.brand} · {p.category}
+                </div>
+                <div className="productPrice">
+                  ₦{p.price.toLocaleString("en-NG")}
+                </div>
+                <div className="productActions">
+                  <button className="buttonLink" onClick={() => openSpec(p)}>
+                    View spec sheet
+                  </button>
+                  <button
+                    className="buttonPrimary"
+                    onClick={() => addToCart(p)}
+                  >
+                    Add to cart
+                  </button>
+                </div>
               </div>
-            </div>
-
-            <footer className="specFooter">
-              <button
-                className="btn btnPrimary"
-                onClick={() => downloadSpecPDF(specItem)}
-              >
-                Download PDF
-              </button>
-            </footer>
-          </div>
+            </article>
+          ))}
         </div>
-      )}
+
+        {specItem && (
+          <div className="specLayer" onClick={closeSpec}>
+            <div
+              className="specPanel"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Product specification"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <header className="specHeader">
+                <div className="specTitle">{specItem.title}</div>
+                <button className="specClose" onClick={closeSpec}>
+                  Close
+                </button>
+              </header>
+
+              <div className="specBody">
+                <div className="specImage">
+                  <img
+                    src={`/assets/frames/${specItem.image}`}
+                    onError={(e) =>
+                      (e.currentTarget.src = "/assets/icons/lens-shop-logo.svg")
+                    }
+                    alt=""
+                  />
+                </div>
+                <div className="specDetails">
+                  <dl className="specList">
+                    {specPairs(specItem).map(([k, v], i) => (
+                      <Fragment key={i}>
+                        <dt>{k}</dt>
+                        <dd>{v}</dd>
+                      </Fragment>
+                    ))}
+                  </dl>
+                </div>
+              </div>
+
+              <footer className="specFooter">
+                <button
+                  className="btn btnPrimary"
+                  onClick={() => downloadSpecPDF(specItem)}
+                >
+                  Download PDF
+                </button>
+              </footer>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
