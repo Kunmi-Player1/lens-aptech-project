@@ -1,10 +1,13 @@
 import { useEffect, useMemo, useState, useCallback } from "react";
-import Cart from "../cart/cart.js";
+import Cart from "../Cart/cart.js";
 
 function useProducts() {
   const [data, setData] = useState([]);
   useEffect(() => {
-    fetch("/data/products.json").then(r => r.json()).then(setData).catch(() => setData([]));
+    fetch("/data/products.json")
+      .then((r) => r.json())
+      .then(setData)
+      .catch(() => setData([]));
   }, []);
   return data;
 }
@@ -15,11 +18,21 @@ export default function PageCatalog({ onOpenCart }) {
   const [category, setCategory] = useState("all");
   const [specItem, setSpecItem] = useState(null);
 
-  const brands = useMemo(() => ["all", ...Array.from(new Set(all.map(p => p.brand)))], [all]);
-  const categories = useMemo(() => ["all", ...Array.from(new Set(all.map(p => p.category)))], [all]);
+  const brands = useMemo(
+    () => ["all", ...Array.from(new Set(all.map((p) => p.brand)))],
+    [all]
+  );
+  const categories = useMemo(
+    () => ["all", ...Array.from(new Set(all.map((p) => p.category)))],
+    [all]
+  );
 
   const filtered = useMemo(() => {
-    return all.filter(p => (brand === "all" || p.brand === brand) && (category === "all" || p.category === category));
+    return all.filter(
+      (p) =>
+        (brand === "all" || p.brand === brand) &&
+        (category === "all" || p.category === category)
+    );
   }, [all, brand, category]);
 
   function addToCart(p) {
@@ -27,12 +40,18 @@ export default function PageCatalog({ onOpenCart }) {
     if (onOpenCart) onOpenCart();
   }
 
-  const openSpec = useCallback((p) => { setSpecItem(p); }, []);
-  const closeSpec = useCallback(() => { setSpecItem(null); }, []);
+  const openSpec = useCallback((p) => {
+    setSpecItem(p);
+  }, []);
+  const closeSpec = useCallback(() => {
+    setSpecItem(null);
+  }, []);
 
   useEffect(() => {
     if (!specItem) return;
-    function onKey(e) { if (e.key === "Escape") closeSpec(); }
+    function onKey(e) {
+      if (e.key === "Escape") closeSpec();
+    }
     document.addEventListener("keydown", onKey);
     return () => document.removeEventListener("keydown", onKey);
   }, [specItem, closeSpec]);
@@ -73,10 +92,15 @@ export default function PageCatalog({ onOpenCart }) {
     const bullets = [];
     let care = "";
     for (let i = 0; i < pairs.length; i++) {
-      const k = pairs[i][0], v = pairs[i][1];
-      if (k === "Care") { care = v; }
-      else if (k === "Brand" || k === "Category" || k === "Price") { head.push([k, v]); }
-      else { bullets.push([k, v]); }
+      const k = pairs[i][0],
+        v = pairs[i][1];
+      if (k === "Care") {
+        care = v;
+      } else if (k === "Brand" || k === "Category" || k === "Price") {
+        head.push([k, v]);
+      } else {
+        bullets.push([k, v]);
+      }
     }
     return { head, bullets, care };
   }
@@ -122,41 +146,64 @@ export default function PageCatalog({ onOpenCart }) {
   return (
     <div>
       <h2 className="pageTitle">Catalog</h2>
-      <p className="pageLead">Browse frames and lenses. Filter by brand or category.</p>
+      <p className="pageLead">
+        Browse frames and lenses. Filter by brand or category.
+      </p>
 
       <div className="filterBar">
         <label className="filterOption">
           <span>Brand</span>
-          <select value={brand} onChange={e => setBrand(e.target.value)}>
-            {brands.map(b => <option key={b} value={b}>{b}</option>)}
+          <select value={brand} onChange={(e) => setBrand(e.target.value)}>
+            {brands.map((b) => (
+              <option key={b} value={b}>
+                {b}
+              </option>
+            ))}
           </select>
         </label>
         <label className="filterOption">
           <span>Category</span>
-          <select value={category} onChange={e => setCategory(e.target.value)}>
-            {categories.map(c => <option key={c} value={c}>{c}</option>)}
+          <select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            {categories.map((c) => (
+              <option key={c} value={c}>
+                {c}
+              </option>
+            ))}
           </select>
         </label>
       </div>
 
       <div className="catalogGrid">
-        {filtered.map(p => (
+        {filtered.map((p) => (
           <article className="productCard" key={p.id}>
             <div className="productMediaBox">
               <img
                 className="productMedia"
                 src={`/assets/frames/${p.image}`}
-                onError={e => (e.currentTarget.src = "/assets/icons/lens-shop-logo.svg")}
+                onError={(e) =>
+                  (e.currentTarget.src = "/assets/icons/lens-shop-logo.svg")
+                }
                 alt=""
               />
             </div>
             <div className="productMain">
               <h3 className="productTitle">{p.title}</h3>
-              <div className="productMeta">{p.brand} · {p.category}</div>
-              <div className="productPrice">₦{p.price.toLocaleString("en-NG")}</div>
+              <div className="productMeta">
+                {p.brand} · {p.category}
+              </div>
+              <div className="productPrice">
+                ₦{p.price.toLocaleString("en-NG")}
+              </div>
               <div className="productActions">
-                <button className="buttonLink" onClick={() => openSpec(p)}>View spec sheet</button>
-                <button className="buttonPrimary" onClick={() => addToCart(p)}>Add to cart</button>
+                <button className="buttonLink" onClick={() => openSpec(p)}>
+                  View spec sheet
+                </button>
+                <button className="buttonPrimary" onClick={() => addToCart(p)}>
+                  Add to cart
+                </button>
               </div>
             </div>
           </article>
@@ -170,18 +217,22 @@ export default function PageCatalog({ onOpenCart }) {
             role="dialog"
             aria-modal="true"
             aria-label="Product specification"
-            onClick={e => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
           >
             <header className="specHeader">
               <div className="specTitle">{specItem.title}</div>
-              <button className="specClose" onClick={closeSpec}>Close</button>
+              <button className="specClose" onClick={closeSpec}>
+                Close
+              </button>
             </header>
 
             <div className="specBody">
               <div className="specImage">
                 <img
                   src={`/assets/frames/${specItem.image}`}
-                  onError={e => (e.currentTarget.src = "/assets/icons/lens-shop-logo.svg")}
+                  onError={(e) =>
+                    (e.currentTarget.src = "/assets/icons/lens-shop-logo.svg")
+                  }
                   alt=""
                 />
               </div>
@@ -198,7 +249,12 @@ export default function PageCatalog({ onOpenCart }) {
             </div>
 
             <footer className="specFooter">
-              <button className="btn btnPrimary" onClick={() => downloadSpecPDF(specItem)}>Download PDF</button>
+              <button
+                className="btn btnPrimary"
+                onClick={() => downloadSpecPDF(specItem)}
+              >
+                Download PDF
+              </button>
             </footer>
           </div>
         </div>
@@ -207,4 +263,6 @@ export default function PageCatalog({ onOpenCart }) {
   );
 }
 
-function Fragment({ children }) { return children; }
+function Fragment({ children }) {
+  return children;
+}

@@ -16,7 +16,11 @@ const Cart = (() => {
     try {
       localStorage.setItem(KEY, JSON.stringify(items));
     } catch {}
-    window.dispatchEvent(new CustomEvent("cart:change", { detail: { items: all(), totals: totals() } }));
+    window.dispatchEvent(
+      new CustomEvent("cart:change", {
+        detail: { items: all(), totals: totals() },
+      })
+    );
   }
 
   function totals() {
@@ -34,18 +38,24 @@ const Cart = (() => {
   function add(p, q = 1) {
     if (!p || !p.id) return;
     const addQty = Math.max(1, Number(q) || 1);
-    const i = items.findIndex(x => x.id === p.id);
+    const i = items.findIndex((x) => x.id === p.id);
     if (i > -1) {
       items[i].qty = (Number(items[i].qty) || 0) + addQty;
     } else {
-      items.push({ id: p.id, title: p.title, price: Number(p.price) || 0, image: p.image, qty: addQty });
+      items.push({
+        id: p.id,
+        title: p.title,
+        price: Number(p.price) || 0,
+        image: p.image,
+        qty: addQty,
+      });
     }
     save();
   }
 
   function setQty(id, q) {
     const n = Math.max(1, Number(q) || 1);
-    const i = items.findIndex(x => x.id === id);
+    const i = items.findIndex((x) => x.id === id);
     if (i > -1) {
       items[i].qty = n;
       save();
@@ -53,7 +63,7 @@ const Cart = (() => {
   }
 
   function remove(id) {
-    items = items.filter(x => x.id !== id);
+    items = items.filter((x) => x.id !== id);
     save();
   }
 
